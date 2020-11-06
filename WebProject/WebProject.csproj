@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\Longin\Login.aspx" />
     <Content Include="Common\Student\js\StudentList.js" />
     <Content Include="Common\Student\StudentList.aspx" />
     <Content Include="default.aspx" />
@@ -183,6 +184,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Longin\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\Longin\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Common\Student\ajax\HandlerStndent.ashx.cs">
       <DependentUpon>HandlerStndent.ashx</DependentUpon>
     </Compile>
