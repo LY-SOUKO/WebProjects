@@ -7,3 +7,15 @@ E:\项目\最新\WebProject\SQLHelper\obj\Debug\SQLHelper.csproj.CoreCompileInpu
 E:\项目\最新\WebProject\SQLHelper\obj\Debug\SQLHelper.csproj.CopyComplete
 E:\项目\最新\WebProject\SQLHelper\obj\Debug\SQLHelper.dll
 E:\项目\最新\WebProject\SQLHelper\obj\Debug\SQLHelper.pdb
+E:\项目\开发\WebProjects\SQLHelper\bin\Debug\SQLHelper.dll
+E:\项目\开发\WebProjects\SQLHelper\bin\Debug\SQLHelper.pdb
+E:\项目\开发\WebProjects\SQLHelper\bin\Debug\Newtonsoft.Json.dll
+E:\项目\开发\WebProjects\SQLHelper\bin\Debug\Newtonsoft.Json.xml
+E:\项目\开发\WebProjects\SQLHelper\obj\Debug\SQLHelper.csprojAssemblyReference.cache
+E:\项目\开发\WebProjects\SQLHelper\obj\Debug\SQLHelper.csproj.CoreCompileInputs.cache
+E:\项目\开发\WebProjects\SQLHelper\obj\Debug\SQLHelper.csproj.CopyComplete
+E:\项目\开发\WebProjects\SQLHelper\obj\Debug\SQLHelper.dll
+E:\项目\开发\WebProjects\SQLHelper\obj\Debug\SQLHelper.pdb
+E:\项目\开发\WebProjects\SQLHelper\bin\Debug\EastSim.Utility.dll
+E:\项目\开发\WebProjects\SQLHelper\bin\Debug\EastSim.Utility.xml
+E:\项目\开发\WebProjects\SQLHelper\bin\Debug\en-US\EastSim.Utility.resources.dll

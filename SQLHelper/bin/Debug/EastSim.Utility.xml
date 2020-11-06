@@ -1,0 +1,2365 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EastSim.Utility</name>
+    </assembly>
+    <members>
+        <member name="T:EastSim.Utility.Algorithm.Evaluate.ELO">
+            <summary>
+            ELO算法（天梯）
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.Algorithm.Evaluate.ELO.Result">
+            <summary>
+            比赛结果
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.Algorithm.Evaluate.ELO.Result.Win">
+            <summary>
+            胜利
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.Algorithm.Evaluate.ELO.Result.Lose">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.Algorithm.Evaluate.ELO.Result.Draw">
+            <summary>
+            平局
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Algorithm.Evaluate.ELO.Calculate(System.Int32,System.Int32,EastSim.Utility.Algorithm.Evaluate.ELO.Result)">
+            <summary>
+            计算新的积分
+            </summary>
+            <param name="mine">当前积分</param>
+            <param name="opponent">对手积分</param>
+            <param name="result">比赛结果</param>
+            <returns>新积分</returns>
+        </member>
+        <member name="M:EastSim.Utility.Algorithm.Evaluate.ELO.Calculate(System.Int32,System.Int32,EastSim.Utility.Algorithm.Evaluate.ELO.Result,System.Int32,System.Int32)">
+            <summary>
+            计算新的积分
+            </summary>
+            <param name="mine">当前积分</param>
+            <param name="opponent">对手积分</param>
+            <param name="result">比赛结果</param>
+            <param name="max">单次积分最大变化值（万金油值为32）</param>
+            <param name="di">变化幅度参数（万金油值为400，数字越大变化幅度越小）</param>
+            <returns>新积分</returns>
+        </member>
+        <member name="T:EastSim.Utility.DataBase.DBHelperBase`4">
+            <summary>
+            数据库的通用访问代码
+            此类为抽象类，不允许实例化
+            </summary>
+            <summary>
+            数据库的通用访问代码
+            此类为抽象类，不允许实例化
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.DBHelperBase`4.ConnectionString">
+            <summary>
+            获取默认数据库连接字符串，只读
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="defaultConnectString"></param>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExecuteNonQuery(System.String,System.Collections.Generic.IList{`2},System.Data.CommandType)">
+             <summary>
+            执行一个不需要返回值的TCommand命令
+             使用参数数组形式提供参数列表 
+             </summary>
+             <param name="cmdType">TCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
+             <param name="cmdText">存储过程的名字或者 T-SQL 语句</param>
+             <param name="cmdParms">以数组形式提供TCommand命令中用到的参数列表</param>
+             <returns>返回一个数值表示此TCommand命令执行后影响的行数</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExecuteScalar(System.String,System.Collections.Generic.IList{`2},System.Data.CommandType,System.String)">
+            <summary>
+            执行一条返回第一条记录第一列的TCommand命令
+            使用参数数组提供参数
+            </summary>
+            <param name="connectstr">一个有效的数据库连接字符串(不存在则使用默认链接字符串)</param>
+            <param name="cmdType">TCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
+            <param name="cmdText">存储过程的名字或者 T-SQL 语句</param>
+            <param name="cmdParms">以数组形式提供TCommand命令中用到的参数列表</param>
+            <returns>返回一个object类型的数据，可以通过 Convert.To{Type}方法转换类型</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExecuteDataTable(System.String,System.Collections.Generic.IList{`2},System.Data.CommandType)">
+            <summary>
+            返回一个datatable数据表
+            </summary>
+            <param name="cmdType">TCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
+            <param name="cmdText">存储过程的名字或者 T-SQL 语句</param>
+            <param name="cmdParms">以数组形式提供TCommand命令中用到的参数列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExeMulitSql(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.Collections.Generic.IList{`2}},System.Boolean)">
+            <summary>
+             执行多条SQL语句,不用事务
+            </summary>
+            <param name="sqlList">要执行的Sql语句集合</param>
+            <param name="cmdParameterArrayList">参数数组的集合</param>
+            <param name="isOneToMulti">
+            <para>SQL语句和参数是否是一对多的关系</para>
+            <para>true : SQLs中的语句只会执行第一句，Parms中参数循环执行</para>
+            <para>false : SQLs和Parms中的参数是一对一的，传入时允许Parms为空，若Parms不为空，则必须和SQLs数目相同</para>
+            </param>
+            <returns>返回执行错误的数目（-1为其他错误未执行任何操作）</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExeMulitSqlWithTrans(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.Collections.Generic.IList{`2}},System.Boolean)">
+            <summary>
+             执行多条SQL语句,不用事务
+            </summary>
+            <param name="sqlList">要执行的Sql语句集合</param>
+            <param name="cmdParameterArrayList">参数数组的集合</param>
+            <param name="isOneToMulti">
+            <para>SQL语句和参数是否是一对多的关系</para>
+            <para>true : SQLs中的语句只会执行第一句，Parms中参数循环执行</para>
+            <para>false : SQLs和Parms中的参数是一对一的，传入时允许Parms为空，若Parms不为空，则必须和SQLs数目相同</para>
+            </param>
+            <returns>返回执行错误的数目（-1为其他错误未执行任何操作）</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.DoPageInfo(System.String,EastSim.Utility.DataBase.PageInfo,System.Collections.Generic.IList{`2})">
+            <summary>
+            
+            </summary>
+            <param name="cmdText"></param>
+            <param name="pageInfo"></param>
+            <param name="cmdParameterArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.AddParameterList(System.Data.IDataParameterCollection,System.Collections.Generic.IList{`2})">
+            <summary>
+            添加查询参数
+            </summary>
+            <param name="dataParameterCollection"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.SimpleDbCommand``1(System.String,System.String,System.Collections.Generic.IList{`2},System.Data.CommandType,System.Func{`0,``0})">
+            <summary>
+            简单SQL命令处理
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="connectString"></param>
+            <param name="cmdText"></param>
+            <param name="cmdParameterArray"></param>
+            <param name="cmdType"></param>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExecuteNonQuery(System.String,System.String,System.Collections.Generic.IList{`2},System.Data.CommandType)">
+             <summary>
+            执行一个不需要返回值的TCommand命令
+             使用参数数组形式提供参数列表 
+             </summary>
+             <param name="connectString">一个有效的数据库连接字符串</param>
+             <param name="cmdType">TCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
+             <param name="cmdText">存储过程的名字或者 T-SQL 语句</param>
+             <param name="cmdParameterArray">以数组形式提供TCommand命令中用到的参数列表</param>
+             <returns>返回一个数值表示此TCommand命令执行后影响的行数</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExecuteScalar(System.String,System.String,System.Collections.Generic.IList{`2},System.Data.CommandType)">
+            <summary>
+            执行一条返回第一条记录第一列的TCommand命令
+            使用参数数组提供参数
+            </summary>
+            <param name="connectString">一个有效的数据库连接字符串</param>
+            <param name="cmdType">TCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
+            <param name="cmdText">存储过程的名字或者 T-SQL 语句</param>
+            <param name="cmdParameterArray">以数组形式提供TCommand命令中用到的参数列表</param>
+            <returns>返回一个object类型的数据，可以通过 Convert.To{Type}方法转换类型</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExecuteDataTable(System.String,System.String,System.Collections.Generic.IList{`2},System.Data.CommandType)">
+            <summary>
+            返回一个datatable数据表
+            </summary>
+            <param name="connectString">一个有效的数据库连接字符串</param>
+            <param name="cmdType">TCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
+            <param name="cmdText">存储过程的名字或者 T-SQL 语句</param>
+            <param name="cmdParameterArray">以数组形式提供TCommand命令中用到的参数列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExecuteDataSet(System.String,System.String,System.Collections.Generic.IList{`2},System.Data.CommandType)">
+            <summary>
+            返回一个DataSet数据集
+            </summary>
+            <param name="connectString">一个有效的数据库连接字符串</param>
+            <param name="cmdType">TCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
+            <param name="cmdText">存储过程的名字或者 T-SQL 语句</param>
+            <param name="cmdParameterArray">以数组形式提供TCommand命令中用到的参数列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExeTableStrucBySql(System.String,System.String,System.Collections.Generic.IList{`2},System.Data.CommandType)">
+            <summary>
+            获取指定Sql的数据表结构（不包含任何数据）
+            </summary>
+            <param name="connectString">一个有效的数据库连接字符串</param>
+            <param name="cmdType">TCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
+            <param name="cmdText">存储过程的名字或者 T-SQL 语句</param>
+            <param name="cmdParameterArray">以数组形式提供TCommand命令中用到的参数列表</param>
+            <returns>数据表</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExeMulitSql(System.String,System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.Collections.Generic.IList{`2}},System.Boolean)">
+            <summary>
+             执行多条SQL语句,不用事务
+            </summary>
+            <param name="sqlList">要执行的Sql语句集合</param>
+            <param name="cmdParameterArrayList">参数数组的集合</param>
+            <param name="isOneToMulti">
+            <para>SQL语句和参数是否是一对多的关系</para>
+            <para>true : SQLs中的语句只会执行第一句，Parms中参数循环执行</para>
+            <para>false : SQLs和Parms中的参数是一对一的，传入时允许Parms为空，若Parms不为空，则必须和SQLs数目相同</para>
+            <param name="connectString">一个有效的数据库连接字符串(不存在则使用默认链接字符串)</param>
+            </param>
+            <returns>返回执行错误的数目（-1为其他错误未执行任何操作）</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.ExeMulitSqlWithTrans(System.String,System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.Collections.Generic.IList{`2}},System.Boolean)">
+            <summary>
+             以事务执行多条SQL语句
+            </summary>
+            <param name="connectString">一个有效的数据库连接字符串(不存在则使用默认链接字符串)</param>
+            <param name="sqlList">要执行的Sql语句集合</param>
+            <param name="cmdParameterArrayList">参数数组的集合</param>
+            <param name="isOneToMulti">
+            <para>SQL语句和参数是否是一对多的关系</para>
+            <para>true : SQLs中的语句只会执行第一句，Parms中参数循环执行</para>
+            <para>false : SQLs和Parms中的参数是一对一的，传入时允许Parms为空，若Parms不为空，则必须和SQLs数目相同</para>
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.GetSqlSafeNameString(System.String)">
+            <summary>
+            获取安全的数据库对象名称
+            </summary>
+            <param name="old"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.EditOrderIndex(System.String,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{System.Guid},System.String)">
+            <summary>
+            更改顺序
+            </summary>
+            <param name="tableName">要更改的表名称</param>
+            <param name="pkColName">要更改的表主键名称</param>
+            <param name="orderColName">要更改的排序字段名称（数据类型必须为整形）</param>
+            <param name="pkOrderList">主键排序顺序</param>
+            <param name="connectString">一个有效的数据库连接字符串(不存在则使用默认链接字符串)</param>
+            <param name="where">附加到Where条件中的语句（不必在前面增加 AND ）</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.EditOrderIndex(System.String,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.String)">
+            <summary>
+            更改顺序
+            </summary>
+            <param name="tableName">要更改的表名称</param>
+            <param name="pkColName">要更改的表主键名称</param>
+            <param name="orderColName">要更改的排序字段名称（数据类型必须为整形）</param>
+            <param name="pkOrderList">主键排序顺序</param>
+            <param name="connectString">一个有效的数据库连接字符串(不存在则使用默认链接字符串)</param>
+            <param name="where">附加到Where条件中的语句（不必在前面增加 AND ）</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.EditOrderIndex(System.String,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            更改顺序
+            </summary>
+            <param name="connectString">一个有效的数据库连接字符串(不存在则使用默认链接字符串)</param>
+            <param name="tableName">要更改的表名称</param>
+            <param name="pkColName">要更改的表主键名称</param>
+            <param name="orderColName">要更改的排序字段名称（数据类型必须为整形）</param>
+            <param name="pkOrderList">
+            <para>排序后的主键SQL字符串表示</para>
+            <para></para>
+            <para>例：</para>
+            <para>int型数据为new string[] { "0", "0", "0" }</para>
+            <para>Guid型数据为new string[] { "'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'", "'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'", "'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'" }，有单引号</para>
+            </param>
+            <param name="where">附加到Where条件中的语句（不必在前面增加 AND ）</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.GetSqlInValues(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            获得sql中in语法数据列表内容
+            </summary>
+            <param name="list">要生成的列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.GetSqlInValues(System.Collections.Generic.IEnumerable{System.Guid})">
+            <summary>
+            获得sql中in语法数据列表内容
+            </summary>
+            <param name="list">要生成的列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.GetSqlInValues(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            获得sql中in语法数据列表内容
+            </summary>
+            <param name="list">要生成的列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.CreatSortSqlString(System.String,EastSim.Utility.DataBase.PageInfo)">
+            <summary>
+            向查询语句中添加排序方法（pageinfo.IsPage 强制认为 false）
+            </summary>
+            <param name="sql"></param>
+            <param name="pageinfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.DoPageInfo(System.String,System.String,EastSim.Utility.DataBase.PageInfo,System.Collections.Generic.IList{`2})">
+            <summary>
+            将pageInfo中的内容增加到sql语句中
+            </summary>
+            <param name="connectString"></param>
+            <param name="cmdText"></param>
+            <param name="pageInfo"></param>
+            <param name="cmdParameterArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.GetOtherSide(EastSim.Utility.DataBase.SortType)">
+            <summary>
+            获取反向排序方法
+            </summary>
+            <param name="strOrder">原排序方法</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.GetOrderString(EastSim.Utility.DataBase.PageInfo,System.Boolean)">
+            <summary>
+            获取排序语句（包括ORDER BY关键字）
+            </summary>
+            <param name="pageInfo"></param>
+            <param name="throwIfNull">如果没有排序方法则抛出异常</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.GetOrderStringOpposite(EastSim.Utility.DataBase.PageInfo,System.Boolean)">
+            <summary>
+            获取反向排序语句（包括ORDER BY关键字）
+            </summary>
+            <param name="pageInfo"></param>
+            <param name="throwIfNull">如果没有排序方法则抛出异常</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.CreatPageSqlString(System.String,System.String,EastSim.Utility.DataBase.PageInfo,System.Collections.Generic.IList{`2})">
+            <summary>
+            准备分页SQL语句（pageInfo.IsPage 强制认为 true）
+            </summary>
+            <param name="cmdText">查询SQL</param>
+            <param name="pageInfo">分页类</param>
+            <param name="cmdParameterArray"></param>
+            <param name="connectString"></param>
+            <returns>分页SQL语句</returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.DBHelperBase`4.GetRecordNumber(System.String,System.String,System.Collections.Generic.IList{`2})">
+            <summary>
+            获得所查询数据的记录数
+            </summary>
+            <param name="cmdText">查询SQL</param>
+            <param name="cmdParameterArray">查询参数</param>
+            <param name="connectString"></param>
+        </member>
+        <member name="T:EastSim.Utility.DataBase.PageInfo">
+            <summary>
+            PageInfo 的摘要说明。
+             分页查询中的参数，用来传递分页信息
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.RecordCount">
+            <summary>
+            记录数
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.PageCount">
+            <summary>
+            页数
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.RecordsInLastPage">
+            <summary>
+            最后一页记录数
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.PageSize">
+            <summary>
+            页大小(不得小于1)
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.CurrentPageIndex">
+            <summary>
+            当前页码(从0开始)
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.IsPage">
+            <summary>
+            是否分页：false表示仅按照所给的字段进行排序操作
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.IsSelectTop">
+            <summary>
+            <para>是否取前几行：</para>
+            <para>仅当IsPage为false时生效，</para>
+            <para>取出当前排序的前几个数据，</para>
+            <para>数目由PageSize决定</para>
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.SortField1">
+            <summary>
+            第一个排序字段
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.SortType1">
+            <summary>
+            第一个排序字段排序方法
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.SortField2">
+            <summary>
+            第二个排序字段
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.SortType2">
+            <summary>
+            第二个排序字段排序方法
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.SortField3">
+            <summary>
+            第三个排序字段
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.DataBase.PageInfo.SortType3">
+            <summary>
+            第三个排序字段排序方法
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.PageInfo.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.DataBase.SortType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.DataBase.SortType.ASC">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.DataBase.SortType.DESC">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.DataBase.SqlHelper">
+            <summary>
+            数据库的通用访问代码
+            此类为抽象类，不允许实例化，在应用时直接调用即可
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.SqlHelper.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="defaultConnectString"></param>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.SqlHelper.BulkCopyToDB(System.Data.DataTable,System.String)">
+            <summary>
+            将表格中的数据复制插入到指定表中
+            </summary>
+            <param name="insertdata">数据所在的表格</param>
+            <param name="tablename">要插入的数据库表名</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DataBase.SqlHelper.BulkCopyToDB(System.String,System.String,System.Data.DataTable,System.Data.SqlClient.SqlBulkCopyOptions,System.Data.SqlClient.SqlBulkCopyColumnMappingCollection)">
+            <summary>
+            将表格中的数据复制插入到指定表中
+            </summary>
+            <param name="connectString">要使用的连接字符串，空则使用默认的连接字符串</param>
+            <param name="tablename">要插入的数据库表名</param>
+            <param name="insertdata">数据所在的表格</param>
+            <param name="bulkcopyoption"></param>
+            <param name="mapping">字段对照映射，如果为空，则自动创建同名字段的映射</param>
+            <returns>是否插入成功</returns>
+        </member>
+        <member name="T:EastSim.Utility.DateTimeEx">
+            <summary>
+            时间方法扩展
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.DateTimeEx.GetTotalMillisecondsFrom19700101">
+            <summary>
+            获取从1970年1月1日零时至今的毫秒数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DateTimeEx.GetTotalMillisecondsFrom19700101(System.DateTime)">
+            <summary>
+            获取从1970年1月1日零时到指定时间的毫秒数
+            </summary>
+            <param name="time">指定时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DateTimeEx.DateTimeToRecent(System.DateTime)">
+            <summary>
+            将时间转换成距离当前时间表示
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.DateTimeEx.DateTimeToString(System.Object,System.String)">
+            <summary>
+            将object类型数据作为DateTime类型转换为字符串
+            </summary>
+            <param name="obj">数据（如果不能转换为DateTime则返回string.Empty）</param>
+            <param name="formatstring">格式化字符串</param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.EnDeCryption.AES">
+             <summary>
+            AES 的摘要说明
+             </summary>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.AES.Encrypt(System.String)">
+            <summary>
+            AES加密(使用默认的密钥)
+            </summary>
+            <param name="toEncrypt">加密字符</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.AES.Decrypt(System.String)">
+            <summary>
+            AES解密(使用默认的密钥)
+            </summary>
+            <param name="toDecrypt">解密字符</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.AES.GetAesKey(System.String)">
+            <summary>
+            获取Aes32位密钥，不足32位时，
+            </summary>
+            <param name="key">Aes密钥字符串</param>
+            <returns>Aes32位密钥</returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.AES.EncryptAes(System.String,System.String)">
+            <summary>
+            Aes加密
+            </summary>
+            <param name="source">源字符串</param>
+            <param name="key">aes密钥，长度必须32位</param>
+            <returns>加密后的字符串</returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.AES.DecryptAes(System.String,System.String)">
+            <summary>
+            Aes解密
+            </summary>
+            <param name="source">源字符串</param>
+            <param name="key">aes密钥，长度必须32位</param>
+            <returns>解密后的字符串</returns>
+        </member>
+        <member name="T:EastSim.Utility.EnDeCryption.Base64">
+            <summary>
+            Base64方法
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.Base64.Decode(System.String,System.Text.Encoding)">
+            <summary>
+            解密Base64到字符串
+            </summary>
+            <param name="code">base64</param>
+            <param name="encode">解密后字符的编码方式</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.Base64.Encode(System.String,System.Text.Encoding)">
+            <summary>
+            加密字符串到Base64
+            </summary>
+            <param name="code">字符串</param>
+            <param name="encode">解密后字符的编码方式</param>
+            <returns>加密结果</returns>
+        </member>
+        <member name="T:EastSim.Utility.EnDeCryption.ByteHex">
+            <summary>
+            16进制字符串操作
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.ByteHex.ToBytes(System.String)">
+            <summary>
+            将BitConverter.ToString字符串,如"98-ED-0S-9A"，还原转换为byte[]
+            </summary>
+            <param name="bit_str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.ByteHex.ToBytes2(System.String)">
+            <summary>
+            将BitConverter.ToString字符串(不含'-'),如"98ED0S9A"，还原转换为byte[]
+            </summary>
+            <param name="bit_str"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.EnDeCryption.DeEnCode">
+            <summary>
+            自定义加解密方法
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.DeEnCode.Encode(System.String)">
+            <summary>
+            加密字符串
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.DeEnCode.Decode(System.String)">
+            <summary>
+            解密字符串
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.DeEnCode.EncodeToHex(System.String,System.Text.Encoding)">
+            <summary>
+            将字符串以指定编码转换成十六进制表示
+            </summary>
+            <param name="src"></param>
+            <param name="code">编码方式（默认GB2312编码）</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.DeEnCode.DecodeFromHex(System.String,System.Text.Encoding)">
+            <summary>
+            将十六进制字符串转换成明文字符串
+            </summary>
+            <param name="src"></param>
+            <param name="code">编码方式（默认GB2312编码）</param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.EnDeCryption.MD5">
+            <summary>
+            MD5操作类
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.MD5.GetFileMD5Code(System.String)">
+            <summary>
+            获取某文件Md5码
+            </summary>
+            <param name="file">文件位置</param>
+            <returns>文件Md5码</returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.MD5.GetFileMD5Guid(System.String)">
+            <summary>
+            获取某文件Md5码
+            </summary>
+            <param name="file">文件位置</param>
+            <returns>文件Md5码</returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.MD5.GetFileMD5(System.String)">
+            <summary>
+            获取某文件Md5码
+            </summary>
+            <param name="file">文件位置</param>
+            <returns>文件Md5码</returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.MD5.GetStringMD5Code(System.String,System.Text.Encoding)">
+            <summary>
+            获取某字符串的MD5码
+            </summary>
+            <param name="str">字符串内容</param>
+            <param name="encoding">编码方法</param>
+            <returns>字符串Md5码</returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.MD5.GetStringMD5Guid(System.String)">
+            <summary>
+            获取某字符串的MD5码(Utf-8编码，GUID型结果)
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.MD5.GetStringMD5Guid(System.String,System.Text.Encoding)">
+            <summary>
+            获取某字符串的MD5码(GUID型结果)
+            </summary>
+            <param name="str">字符串内容</param>
+            <param name="encoding">编码方法</param>
+            <returns>字符串Md5码</returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.MD5.GetStringMD5(System.String,System.Text.Encoding)">
+            <summary>
+            获取某字符串的MD5码(原始结果)
+            </summary>
+            <param name="str"></param>
+            <param name="encoding"></param>
+            <exception cref="T:System.ArgumentNullException">当字符串或编码格式为空时</exception>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.EnDeCryption.MD5.ParseGuid(System.String)">
+            <summary>
+            将MD5码转换成Guid
+            </summary>
+            <param name="md5Code">MD5码</param>
+            <returns>
+            转换成的Guid，转换失败则返回Guid.Empty
+            </returns>
+        </member>
+        <member name="T:EastSim.Utility.WebRequestExtend">
+            <summary>
+            WebRequest扩展
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.WebRequestExtend.IPostData">
+            <summary>
+            要发送的数据内容
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.WebRequestExtend.IPostData.Length">
+            <summary>
+            总长度（包含描述及结尾换行，不包含数据分割内容）
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.WebRequestExtend.IPostData.WriteToStraem(System.IO.Stream)">
+            <summary>
+            将内容写入到请求数据流中
+            </summary>
+            <param name="requestStream">要写入的请求数据流</param>
+        </member>
+        <member name="T:EastSim.Utility.WebRequestExtend.PostData">
+            <summary>
+            发送数据基类
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.WebRequestExtend.PostData.LineSplit">
+            <summary>
+            数据换行标识
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.WebRequestExtend.PostData.LineSplitArray">
+            <summary>
+            数据分割换行转字节数组
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.WebRequestExtend.PostData.Length">
+            <summary>
+            总长度（包含描述及结尾换行，不包含数据分割内容）
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.WebRequestExtend.PostData.WriteToStraem(System.IO.Stream)">
+            <summary>
+            将内容写入到请求数据流中
+            </summary>
+            <param name="requestStream">要写入的请求数据流</param>
+        </member>
+        <member name="T:EastSim.Utility.WebRequestExtend.PostStringData">
+            <summary>
+            发送字符串
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.WebRequestExtend.PostStringData.#ctor(System.String,System.String)">
+            <summary>
+            创建发送字符串实例
+            </summary>
+            <param name="name">字符串Name</param>
+            <param name="value">字符串内容</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="name"/>为空</exception>
+        </member>
+        <member name="P:EastSim.Utility.WebRequestExtend.PostStringData.Length">
+            <summary>
+            总长度（包含描述及结尾换行，不包含数据分割内容）
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.WebRequestExtend.PostStringData.WriteToStraem(System.IO.Stream)">
+            <summary>
+            将内容写入到请求数据流中
+            </summary>
+            <param name="requestStream">要写入的请求数据流</param>
+        </member>
+        <member name="T:EastSim.Utility.WebRequestExtend.PostFileData">
+            <summary>
+            发送的文件
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.WebRequestExtend.PostFileData.#ctor(System.String,System.String)">
+            <summary>
+            创建发送文件实例
+            </summary>
+            <param name="name">文件Name</param>
+            <param name="filepath">要发送的文件物理路径</param>
+            <exception cref="T:System.IO.FileNotFoundException"><paramref name="filepath"/>未指定文件或文件不存在</exception>
+        </member>
+        <member name="P:EastSim.Utility.WebRequestExtend.PostFileData.Length">
+            <summary>
+            总长度（包含描述及结尾换行，不包含数据分割内容）
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.WebRequestExtend.PostFileData.WriteToStraem(System.IO.Stream)">
+            <summary>
+            将内容写入到请求数据流中
+            </summary>
+            <param name="requestStream">要写入的请求数据流</param>
+        </member>
+        <member name="M:EastSim.Utility.WebRequestExtend.PostMultipartData(System.Net.WebRequest,System.Collections.Generic.IList{EastSim.Utility.WebRequestExtend.IPostData})">
+            <summary>
+            向指定请求发送数据
+            </summary>
+            <param name="webRequest">请求</param>
+            <param name="postDataList">要发送的数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.FileHelper.Compression">
+            <summary>
+            压缩解压帮助
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.Compression.UnCompressionZip(System.String,System.String)">
+            <summary>
+            解压缩Zip文件夹
+            </summary>
+            <param name="ZipPath">Zip文件路径</param>
+            <param name="SaveFloder">保存目录</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.Compression.UnCompressionRar(System.String,System.String,System.String)">
+            <summary>
+            解压rar压缩包
+            </summary>
+            <param name="RarPath">rar文件路径</param>
+            <param name="UnrarAppPath">用于执行解压缩的unrar程序所在路径</param>
+            <param name="SaveFolder">保存目录</param>
+            <returns>是否解压成功</returns>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.Compression.UnCompression(System.String,System.String,System.String)">
+            <summary>
+            解压压缩包文件（注：只支持.rar和.zip格式压缩包）
+            </summary>
+            <param name="CompressedFilePath">压缩包文件路径</param>
+            <param name="UnrarAppPath">用于执行解压缩的unrar程序所在路径</param>
+            <param name="SaveFolder">保存目录</param>
+            <returns>是否解压成功</returns>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.Compression.CompressZip(System.Collections.Generic.IEnumerable{System.String},System.String,System.Boolean)">
+            <summary>
+            压缩文件和文件夹
+            </summary>
+            <param name="filesOrFoldersToCompress">要压缩的文件和文件夹（注：这些要压缩的文件和文件夹必须在同一个目录下，否则将抛出异常）</param>
+            <param name="targetZipFile">目标文件（全路径）</param>
+            <param name="toDeleteSource">是否删除被压缩的文件</param>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.Compression.CompressZip(System.String,System.Collections.Generic.List{System.String},System.String,System.Boolean)">
+            <summary>
+            压缩文件
+            </summary>
+            <param name="rootFolder">所有要被压缩的文件都存放在此目录或此目录的子目录下</param>
+            <param name="filesToCompress">所有要被压缩的文件（全路径）</param>
+            <param name="targetZipFile">目录文件（全路径）</param>
+            <param name="toDeleteSource">是否删除被压缩的文件</param>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.Compression.GetAllFiles(System.String)">
+            <summary>
+            获取某一目录及其子目录下的所有文件
+            </summary>
+            <param name="directory">目录（全路径）</param>
+            <returns>指定目录及其子目录下的所有文件</returns>
+        </member>
+        <member name="T:EastSim.Utility.FileHelper.ImageChange">
+            <summary>
+            图片处理
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.ImageChange.GetThumbnail(System.Int32,System.Int32,System.Int64,System.String,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
+            <summary>
+            <para>生成缩略图</para>
+            <para>如果原始文件在要求范围内则不进行转换，直接放到新文件路径里面</para>
+            <para>如果需要转换则按照默认参数进行，文件大小可能超过大小限制</para>
+            </summary>
+            <param name="MaxWidth">最大缩略图宽度</param>
+            <param name="MaxHeight">最大缩略图高度</param>
+            <param name="MaxFileLength">最大缩略图文件大小（仅作为判断是否要进行转换）</param>
+            <param name="OriginalImagePath">原图像路径（物理路径）</param>
+            <param name="SaveImagePath">保存的图像路径（物理路径）（如果为空则使用原图像路径进行保存）</param>
+            <param name="format">保存的文件格式（为空则根据扩展名计算）</param>
+            <param name="DelOriginal">
+            <para>是否删除原图像</para>
+            <para>false：默认，如果保存路径和原路经相同，则原始文件名增加.bak</para>
+            </param>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.ImageChange.GetThumbnail(System.String,System.Int32,System.Int32)">
+            <summary>
+            <para>强制压缩图片</para>
+            <para>如果图片压缩后文件大小超过原图片则不进行压缩</para>
+            </summary>
+            <param name="inputImagePath">原图像路径（物理路径）</param>
+            <param name="outputMaxWidth">最大图片宽度</param>
+            <param name="outputMaxHeight">最大图片高度</param>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.ImageChange.GetThumbnail(System.String,System.Int32,System.Int32,System.Int64,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
+            <summary>
+            <para>生成缩略图</para>
+            <para>如果原始文件在要求范围内则不进行转换，直接放到新文件路径里面</para>
+            <para>如果需要转换则按照默认参数进行，文件大小可能超过大小限制</para>
+            </summary>
+            <param name="inputImagePath">原图像路径（物理路径）</param>
+            <param name="outputMaxWidth">最大缩略图宽度</param>
+            <param name="outputMaxHeight">最大缩略图高度</param>
+            <param name="checkMaxFileLength">最大缩略图文件大小（仅作为判断是否要进行转换）</param>
+            <param name="saveImagePath">保存的图像路径（物理路径）（如果为空则使用原图像路径进行保存）</param>
+            <param name="format">保存的文件格式（为空则根据扩展名计算，无法找到则以JPEG保存）</param>
+            <param name="deleteInput">是否删除原图像，不删除时，如果保存路径和原路经相同，则原始文件名增加.bak</param>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.ImageChange.SaveBitmap(System.Drawing.Image,System.String)">
+            <summary>
+            保存图片
+            </summary>
+            <param name="image"></param>
+            <param name="path"></param>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.ImageChange.SaveBitmap(System.Drawing.Image,System.String,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            保存图片
+            </summary>
+            <param name="image"></param>
+            <param name="path"></param>
+            <param name="format"></param>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.ImageChange.GetThumbnailBitMap(System.String,System.Int32,System.Int32,System.Int64,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            <para>生成缩略图数据</para>
+            </summary>
+            <param name="inputImageFile">原图像路径（物理路径）</param>
+            <param name="outputMaxWidth">最大缩略图宽度</param>
+            <param name="outputMaxHeight">最大缩略图高度</param>
+            <param name="checkMaxFileLength">图片大小限制（仅作为判断是否要进行转换，小于1则不检查）</param>
+            <param name="targetFormat">目标图片格式（仅作为判断是否要进行转换，空则不检查）</param>
+            <returns>如果需要压缩则返回压缩后的图片数据，NULL表示不用进行压缩</returns>
+        </member>
+        <member name="T:EastSim.Utility.FileHelper.MimeMapping">
+            <summary>
+            Mime数据
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.MimeMapping.MimeMappingDictionaryBase.AddMapping(System.String,System.String)">
+            <summary>
+            添加一个到路径中
+            </summary>
+            <param name="fileExtension"></param>
+            <param name="mimeType"></param>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.MimeMapping.GetMimeMapping(System.String)">
+            <summary>
+            获取文件的Mime类型
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.FileHelper.MimeMapping.GetAllKnownMime">
+            <summary>
+            获取所有已知的MIME类型数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.HelperClass.ClassAndTable">
+            <summary>
+            类和表格的转换方法
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ClassAndTable.DataTableToEntities``1(System.Data.DataTable,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.Int32,System.String}}@)">
+            <summary>
+            将一个DataTable转换为对应的实体类
+            </summary>
+            <typeparam name="T">实体类的类型</typeparam>
+            <param name="table">DataTable对象</param>
+            <param name="reflect">字段对照对象(Key:ClassName,Value:TableName)，可以为空</param>
+            <param name="errorinfo">转换出错信息(行数，错误字段)</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ClassAndTable.EntitiesToDataTable``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            将实体类列表转换为对应的表格格式
+            </summary>
+            <typeparam name="T">实体类类型</typeparam>
+            <param name="Entities">实体类列表</param>
+            <param name="reflect">字段对照对象(Key:ClassName,Value:TableName)，可以为空</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ClassAndTable.ObjectCopy(System.Object,System.Object)">
+            <summary>
+            复制源对象属性、字段到目标对象
+            </summary>
+            <param name="source">源对象</param>
+            <param name="target">目标对象</param>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ClassAndTable.DeepClone``1(``0)">
+            <summary>
+            对象深复制
+            </summary>
+            <typeparam name="T">源对象类型</typeparam>
+            <param name="original">源对象</param>
+            <returns>被复制出的对象</returns>
+        </member>
+        <member name="T:EastSim.Utility.HelperClass.ComparerHelper`1">
+            <summary>
+            IEqualityComparer 的通用实现类，可用于Linq的distinct函数
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.ComparerHelper`1.Comparer">
+            <summary>
+            比较器
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.ComparerHelper`1.HashCode">
+            <summary>
+            哈希器
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ComparerHelper`1.#ctor(System.Func{`0,`0,System.Boolean})">
+            <summary>
+            初始化一个具有指定比较委托的比较器
+            </summary>
+            <param name="comparer">比较方法</param>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ComparerHelper`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32})">
+            <summary>
+            初始化一个具有指定比较委托的比较器
+            </summary>
+            <param name="comparer">比较方法</param>
+            <param name="hashcode">
+            <para>单个对象获取hashcode方法，可以为空</para>
+            <para>为空时默认方法返回0，必然会调用比较委托的方法</para>
+            <para>一个好的GetHashCode方法可以使比较加快很多</para>
+            </param>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ComparerHelper`1.Equals(`0,`0)">
+            <summary>
+            比较两个对象是否相等
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ComparerHelper`1.GetHashCode(`0)">
+            <summary>
+            获取指定对象的HashCode
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.HelperClass.ITimeEvent">
+            <summary>
+            执行事件内容
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.ITimeEvent.IsInUse">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.ITimeEvent.IsTime">
+            <summary>
+            <para> 是否是每天定时执行</para>
+            <para> 是：每天按照RunTime中定义的时间执行，如夜里三点，则为new TimeSpan(3, 0, 0) </para>
+            <para> 否：按照RunTime中定义的时间间隔执行</para>
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.ITimeEvent.LastRunTime">
+            <summary>
+            上次执行方法的时间
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.ITimeEvent.RunTime">
+            <summary>
+            定义执行时间
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ITimeEvent.Timer">
+            <summary>
+            要执行的函数
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.HelperClass.MulitEventTimer">
+            <summary>
+            多事件定时器
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.MulitEventTimer.#ctor(System.Double,System.Action{System.Exception})">
+            <summary>
+            
+            </summary>
+            <param name="interval">定时器的时间间隔（毫秒）（不能少于100毫秒）</param>
+            <param name="onError">发生未处理异常时调用</param>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.MulitEventTimer.AddTimeEvent``1(``0)">
+            <summary>
+            添加一个事件到事件列表中
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="timerEvent"></param>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.MulitEventTimer.RunAllEvent">
+            <summary>
+            立刻执行所有方法，不论是否应该执行
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.MulitEventTimer.Timer_Elapsed(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            定时器事件
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.MulitEventTimer.Stop">
+            <summary>
+            停止运行
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.MulitEventTimer.ReStart">
+            <summary>
+            重新开始
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.HelperClass.ReflectHelper">
+            <summary>
+            反射帮助
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ReflectHelper.LoadClass``1(System.String,System.String)">
+            <summary>
+            从指定程序集加载指定类实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="classNamespace">类型完全名称</param>
+            <param name="AssemblyPath">程序集长名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ReflectHelper.LoadClass``1(System.String)">
+            <summary>
+            从指定DLL和加载指定的类型实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="typename">要获取的类型的程序集限定名称。</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ReflectHelper.LoadType``1">
+            <summary>
+            从已经加载的程序集中加载指定类实例
+            </summary>
+            <typeparam name="T">父类或接口</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ReflectHelper.LoadType``1(System.String)">
+            <summary>
+            从指定程序集加载指定类型实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="assemblyname">程序集名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ReflectHelper.LoadType``1(System.Reflection.Assembly)">
+            <summary>
+            从指定程序集加载指定类型实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="assembly">程序集</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ReflectHelper.LoadTypeList``1">
+            <summary>
+            从已经加载的程序集中加载指定类实例
+            </summary>
+            <typeparam name="T">父类或接口</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ReflectHelper.LoadTypeListFromPath``1(System.String)">
+            <summary>
+            从指定程序集中加载指定类实例
+            </summary>
+            <typeparam name="T">父类或接口</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ReflectHelper.LoadTypeListFromName``1(System.String)">
+            <summary>
+            从指定程序集中加载指定类实例
+            </summary>
+            <typeparam name="T">父类或接口</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.ReflectHelper.LoadTypeList``1(System.Reflection.Assembly)">
+            <summary>
+            从指定程序集中加载指定类实例
+            </summary>
+            <typeparam name="T">父类或接口</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.HelperClass.Serializer">
+            <summary>
+            序列化帮助
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.Serializer.XMLDeserialize``1(System.String)">
+            <summary>  
+            反序列化  
+            </summary>
+            <param name="xml">XML字符串</param>  
+            <returns></returns>  
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.Serializer.XMLSerializer``1(``0)">
+            <summary>  
+            序列化  
+            </summary>  
+            <param name="obj">对象</param>  
+            <returns></returns>  
+        </member>
+        <member name="T:EastSim.Utility.HelperClass.TimeEventBase">
+            <summary>
+            执行事件的基类（同一个子类只能往同一个定时器实例中添加一个实例）
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.TimeEventBase.IsInUse">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.TimeEventBase.IsTime">
+            <summary>
+            <para> 是否是每天定时执行</para>
+            <para> 是：每天按照RunTime中定义的时间执行，如夜里三点，则为new TimeSpan(3, 0, 0) </para>
+            <para> 否：按照RunTime中定义的时间间隔执行</para>
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.TimeEventBase.RunTime">
+            <summary>
+            定义执行时间
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.HelperClass.TimeEventBase.LastRunTime">
+            <summary>
+            上次执行方法的时间
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.TimeEventBase.#ctor(System.Boolean,System.TimeSpan)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.TimeEventBase.#ctor(System.Boolean,System.Boolean,System.TimeSpan)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.HelperClass.TimeEventBase.Timer">
+            <summary>
+            要执行的函数
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.Process.ErrorInfo">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.ErrorInfo.IntValue">
+            <summary>
+            自定义的Int信息
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.ErrorInfo.ErrorCode">
+            <summary>
+            错误编码
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.ErrorInfo.ShowMessage">
+            <summary>
+            错误说明
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.ErrorInfo.Exception">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.Process.ExportToFile">
+            <summary>
+            <para>导出内容到文件</para>
+            <para>函数执行顺序PrepareData()、OpenFile()、WriteData()、SaveFile()、Finish()</para>
+            <para>使用需要工作：</para>
+            <para>重写上述四个方法</para>
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.ExportToFile.TempleteFilePath">
+            <summary>
+            模板文件路径
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.ExportToFile.SaveFilePath">
+            <summary>
+            保存的文件路径
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.ExportToFile.MainWork">
+            <summary>
+            工作主函数
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.ExportToFile.PrepareData">
+            <summary>
+            获取数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.Process.ExportToFile.OpenFile">
+            <summary>
+            打开文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.Process.ExportToFile.WriteData">
+            <summary>
+            写入文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.Process.ExportToFile.SaveFile">
+            <summary>
+            保存文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.Process.ImportFromFile">
+            <summary>
+            <para>导入基本类</para>
+            <para>函数执行顺序OpenFile()、GetData()、CheckData()、SavaData()</para>
+            <para>使用需要工作：</para>
+            <para>重写上面的四个函数方法</para>
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.ImportFromFile.OpenFilePath">
+            <summary>
+            打开文件的目录
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.ImportFromFile.MainWork">
+            <summary>
+            工作主函数
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.ImportFromFile.OpenFile">
+            <summary>
+            打开文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.Process.ImportFromFile.GetData">
+            <summary>
+            获得数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.Process.ImportFromFile.CloseFile">
+            <summary>
+            关闭文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.Process.ImportFromFile.CheckData">
+            <summary>
+            验证数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.Process.ImportFromFile.SavaData">
+            <summary>
+            保存数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.Process.IWorkProcess">
+            <summary>
+            工作线程应该实现的接口
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.IWorkProcess.WorkId">
+            <summary>
+            导入导出工作ID
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.IWorkProcess.BeginWork">
+            <summary>
+            开始工作（新线程）
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.IWorkProcess.BeginWorkSynchronization">
+            <summary>
+            开始工作（当前线程）
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.IWorkProcess.Status">
+            <summary>
+            获得工作进行的状态
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.IWorkProcess.Errors">
+            <summary>
+            获取错误信息
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.IWorkProcess.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.IWorkProcess.FinishTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.IWorkProcess.WorkStatusString">
+            <summary>
+            工作状态描述
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.Process.WorkProcessBase">
+            <summary>
+            工作任务基类
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.WorkProcessBase.ExceptionHandler">
+            <summary>
+            发生异常时调用
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.WorkProcessBase.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.WorkProcessBase.WorkId">
+            <summary>
+            工作任务ID
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.WorkProcessBase.Status">
+            <summary>
+            获得工作进行的状态
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.WorkProcessBase.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.WorkProcessBase.FinishTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.WorkProcessBase.WorkStatusString">
+            <summary>
+            工作状态描述
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Process.WorkProcessBase.Errors">
+            <summary>
+            <para>获取错误信息</para>
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.WorkProcessBase.BeginWork">
+            <summary>
+            开始工作（新线程）
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.WorkProcessBase.BeginWorkSynchronization">
+            <summary>
+            开始工作（当前线程）
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.WorkProcessBase.MainWorkHolder(System.Object)">
+            <summary>
+            工作线程主函数
+            </summary>
+            <param name="o"></param>
+        </member>
+        <member name="M:EastSim.Utility.Process.WorkProcessBase.MainWork">
+            <summary>
+            工作主函数
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Process.WorkProcessBase.Finish">
+            <summary>
+            任务结束后进行的操作(失败或成功都执行)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.Process.WorkProcessBase.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.Process.WorkStatus">
+            <summary>
+            工作状态
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.Process.WorkStatus.NotStart">
+            <summary>
+            未开始
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.Process.WorkStatus.Doing">
+            <summary>
+            进行中
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.Process.WorkStatus.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.Process.WorkStatus.Failure">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.Properties.ResourseString">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.CompressionExceptionNotInSaveFloder">
+            <summary>
+              查找类似 要压缩的文件和文件夹不在同一目录下，此操作是不允许的！ 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.ConfigHelperExceptionAppSettingsKeyError">
+            <summary>
+              查找类似 获取当前应用程序配置项“{0}”错误 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.ConfigHelperExceptionAppSettingsKeyErrorFromFile">
+            <summary>
+              查找类似 从“{0}”读取配置项“{1}“错误 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.ConfigHelperExceptionConfigFileError">
+            <summary>
+              查找类似 获取配置文件“{0}”错误 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.DateTimeExFormatDayAfterTomorrow">
+            <summary>
+              查找类似 后天 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.DateTimeExFormatDayBeforeYesterday">
+            <summary>
+              查找类似 前天 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.DBHelperBaseNoneOrderType">
+            <summary>
+              查找类似 不能没有排序 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.DistributionExceptionDistributionValueOutOfRange">
+            <summary>
+              查找类似 数据段数量必须大于1 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.MulitEventTimerExceptionIntervalSmallerThan100">
+            <summary>
+              查找类似 事件间隔不能小于100毫秒 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.MulitEventTimerExceptionTimeSetOver24">
+            <summary>
+              查找类似 指定执行的时间大于24点，事件不可能被执行 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.StringMinutesAgo">
+            <summary>
+              查找类似 分钟前 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.StringMinutesLater">
+            <summary>
+              查找类似 分钟后 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.StringSecondAgo">
+            <summary>
+              查找类似 秒前 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.StringSecondLater">
+            <summary>
+              查找类似 秒后 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.StringToday">
+            <summary>
+              查找类似 今天 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.StringTomorrow">
+            <summary>
+              查找类似 明天 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.StringYesterday">
+            <summary>
+              查找类似 昨天 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.WorkProcessBaseExceptionCanotAddToThreadPool">
+            <summary>
+              查找类似 未能将任务加载到线程池 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.WorkProcessBaseExceptionUnhandlerError">
+            <summary>
+              查找类似 发生未知错误 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.WorkProcessBaseWorkStatusStringFormatFailure">
+            <summary>
+              查找类似 失败：耗时{0:f2}秒 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.WorkProcessBaseWorkStatusStringFormatNotStart">
+            <summary>
+              查找类似 未开始 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.WorkProcessBaseWorkStatusStringFormatRuning">
+            <summary>
+              查找类似 进行中：已用时{0:f2}秒 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.WorkProcessBaseWorkStatusStringFormatSuccess">
+            <summary>
+              查找类似 成功：耗时{0:f2}秒 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:EastSim.Utility.Properties.ResourseString.WorkProcessBaseWorkStatusStringFormatUnknowState">
+            <summary>
+              查找类似 未知状态 的本地化字符串。
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.Rand">
+            <summary>
+            随机方法
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.Rand.random">
+            <summary>
+            全局随机数
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Rand.GenerateRandomNumber(System.Int32)">
+            <summary>
+            生成随机数
+            </summary>
+            <param name="Length">生成随机数的位数</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.Rand.GenerateRandomString(System.Int32)">
+            <summary>
+            生成随机字符串
+            </summary>
+            <param name="Length"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.Statistics.Distribution">
+            <summary>
+            数据分布处理
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Statistics.Distribution.GetDistribution``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            获取数据分布数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="list">所有要获取分布的数据(不满足划分段的会舍去)</param>
+            <param name="distributionValue">分布数据段（需包含最大最小值，和划分值相等的划分到数值较大的一个段）</param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.Statistics.YearInfo">
+            <summary>
+            按年度统计信息
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.Statistics.YearInfo.GetYearInfoByMonth(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String,System.Boolean,System.Char}},System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.Int32,System.Int32}},System.Int32[]@,System.Tuple{System.String,System.String,System.Int32[]}[]@)">
+            <summary>
+            根据根据分配表查询按月份分配的数据
+            </summary>
+            <param name="Distribution">分配序列【分配ID，分配名称，是否查询子对象，子对象分割字符】</param>
+            <param name="ValueList">分配内容【分配ID，月份，个数】</param>
+            <param name="TotalInfo">每个月总计个数</param>
+            <param name="DistriInfo">分配结构【分配ID，分配名称，结果数组（12个月每月数据）（包含0）】</param>
+        </member>
+        <member name="M:EastSim.Utility.Statistics.YearInfo.GetPeopleYearInfoByMonth(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String,System.Boolean,System.Char}},System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String,System.Int32,System.Int32}},System.Tuple{System.Int32,System.Int32}[]@,System.Int32@,System.Int32@,System.Tuple{System.String,System.String,System.Tuple{System.Int32,System.Int32}[]}[]@)">
+            <summary>
+            根据根据分配表查询按月份分配的数据(人数及人次)
+            </summary>
+            <param name="Distribution">分配序列【分配ID，分配名称，是否查询子对象，子对象分割字符】</param>
+            <param name="ValueList">分配内容【用户名，分配ID，月份，次数】</param>
+            <param name="NameAndNumInfo">按月份的人数及人次信息</param>
+            <param name="TotalNameInfo">总计人数</param>
+            <param name="TotalNumInfo">总计人次</param>
+            <param name="DistriInfo">分配结构【分配ID，分配名称，结果数组（12个月每月人数及总计 共13个结果），结果数组（12个月每月人次及总计 共13个结果）】</param>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.CharCheck">
+            <summary>
+            字符检查方法
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.CharCheck.IsAsciiNumber(System.Char)">
+            <summary>
+            是Ascii的数字
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.CharCheck.IsAsciiLetterWord(System.Char)">
+            <summary>
+            是Ascii的小写字母
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.CharCheck.IsAsciiUpperWord(System.Char)">
+            <summary>
+            是Ascii的大写字母
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.CharCheck.IsAsciiSpecWord(System.Char)">
+            <summary>
+            是Ascii的特殊字符
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.CharCheck.IsNotSupport(System.Char)">
+            <summary>
+            非Ascii字母数字以及特殊符号
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.CharCheck.IsAsciiHex(System.Char)">
+            <summary>
+            是Ascii十六进制数字（不区分大小写）
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.CharCheck.IsAsciiHexBigCase(System.Char)">
+            <summary>
+            是Ascii十六进制数字（仅大写）
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.Common">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.Common.CombineString(System.Collections.IEnumerable,System.Char)">
+            <summary>
+            合并对象的字符串表示
+            </summary>
+            <param name="values">对象</param>
+            <param name="split">分隔字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.Common.SplitString(System.String,System.Char,System.Boolean,System.Boolean)">
+            <summary>
+            拆分已指定分隔符分隔的字符串
+            </summary>
+            <param name="values">字符串</param>
+            <param name="split">分隔字符串</param>
+            <param name="delEmpty">是否删除由空白字符串组成的子串</param>
+            <param name="trim">是否对每一个执行trim操作</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.Common.SplitGuidStr(System.String,System.Char,System.Boolean,System.Boolean)">
+            <summary>
+            拆分已指定分隔符分隔的字符串
+            </summary>
+            <param name="values">字符串</param>
+            <param name="split">分隔字符串</param>
+            <param name="delEmpty">是否删除由空白字符串组成的子串</param>
+            <param name="trim">是否对每一个执行trim操作</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.Common.SplitString``1(System.String,System.Char,System.Boolean,System.Boolean)">
+            <summary>
+            拆分已指定分隔符分隔的字符串
+            </summary>
+            <param name="values">字符串</param>
+            <param name="split">分隔字符串</param>
+            <param name="delEmpty">是否删除由空白字符串组成的子串</param>
+            <param name="trim">是否对每一个执行trim操作</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.Common.SubString(System.String,System.Int32)">
+            <summary>
+            截断字符串
+            </summary>
+            <param name="s"></param>
+            <param name="num"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.Common.DeleteChar(System.String,System.Char)">
+            <summary>
+            删除指定的字符
+            </summary>
+            <param name="s">输入字符串</param>
+            <param name="ch">要删除的字符</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.Common.GetEnumDescription(System.Enum)">
+            <summary>
+            获取枚举的描述说明
+            </summary>
+            <param name="en"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.ConfigHelper">
+            <summary>
+            配置文件帮助类
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetDefaultConfigValue(System.String,System.String)">
+            <summary>
+            获取当前应用程序默认配置的某配置项值
+            </summary>
+            <param name="key">配置项Key</param>
+            <param name="defaultValue">默认值</param>
+            <returns>配置项值</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetDefaultConfigValue``1(System.String,``0)">
+            <summary>
+            获取当前应用程序默认配置的某配置项值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="configKey">配置项key</param>
+            <param name="defaultValue">默认值</param>
+            <returns>配置项值</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetConfigValue(System.String,System.String,System.String)">
+            <summary>
+            查找某配置文件中某配置项的值
+            </summary>
+            <param name="configFilePath">配置文件路径</param>
+            <param name="configKey">配置项key</param>
+            <param name="defaultValue">默认值</param>
+            <returns>配置项值</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetConfigValue``1(System.String,System.String,``0)">
+            <summary>
+            查找某配置文件中某配置项的值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="configFilePath">配置文件路径</param>
+            <param name="configKey">配置项key</param>
+            <param name="defaultValue">默认值</param>
+            <returns>配置项值</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetConfigString(System.Configuration.Configuration,System.String)">
+            <summary>
+            从某配置文件实体中查找某配置项的值
+            </summary>
+            <param name="config">配置文件实体</param>
+            <param name="key">配置项key</param>
+            <returns>配置项的值</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetConfiguration(System.String)">
+            <summary>
+            根据配置文件路径，获取配置文件实体对象
+            </summary>
+            <param name="configFilePath">配置文件路径</param>
+            <returns>配置文件对象</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetConfigBool(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetConfigDecimal(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetConfigInt(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetConfigString(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetString(System.Configuration.Configuration,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetBool(System.Configuration.Configuration,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetInt(System.Configuration.Configuration,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetDecimal(System.Configuration.Configuration,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetDouble(System.Configuration.Configuration,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetString(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="strPathConfigFile"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetBool(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="strPathConfigFile"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetInt(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="strPathConfigFile"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetDecimal(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="strPathConfigFile"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.ConfigHelper.GetDouble(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="strPathConfigFile"></param>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.GetPostBack">
+            <summary>
+            Http请求帮助
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.GetPostBack.GetValue(System.String,System.Web.HttpRequest,System.String@)">
+            <summary>
+            获取从页面发送给服务器的值（以post或get方式发送的值，均可获取）
+            </summary>
+            <param name="key"></param>
+            <param name="value">返回值</param>
+            <param name="request">HTML请求，为空则使用当前请求</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.GetPostBack.GetPostBackValue(System.String,System.String,System.Web.HttpRequest)">
+            <summary>
+            获取从页面发送给服务器的值（以post或get方式发送的值，均可获取）
+            </summary>
+            <param name="strName"></param>
+            <param name="defaultValue">默认返回值</param>
+            <param name="request">HTML请求，为空则使用当前请求</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.GetPostBack.GetPostBackValue(System.String,System.Guid,System.Web.HttpRequest)">
+            <summary>
+            转换数据到指定的类型
+            </summary>
+            <param name="postName">请求的值所在KEY</param>
+            <param name="defaultValue">转换失败默认值</param>
+            <param name="request">HTML请求，为空则使用当前请求</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.GetPostBack.GetPostBackValue``1(System.String,``0,System.Web.HttpRequest)">
+            <summary>
+            转换数据到指定的类型
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="postName">请求的值所在KEY</param>
+            <param name="defaultValue">转换失败默认值</param>
+            <param name="request">HTML请求，为空则使用当前请求</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.GetPostBack.GetPostBackGuid(System.String,System.Web.HttpRequest)">
+            <summary>
+            转换数据到指定的类型（如果没有则返回null）
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="postName">请求的值所在KEY</param>
+            <param name="request">HTML请求，为空则使用当前请求</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.GetPostBack.GetPostBackValue``1(System.String,System.Web.HttpRequest)">
+            <summary>
+            转换数据到指定的类型（如果没有则返回null）
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="postName">请求的值所在KEY</param>
+            <param name="request">HTML请求，为空则使用当前请求</param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.IDCardStatus">
+            <summary>
+            身份证检查结果
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.StringHelper.IDCardStatus.Right">
+            <summary>
+            正确
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.StringHelper.IDCardStatus.LengthError">
+            <summary>
+            长度错误
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.StringHelper.IDCardStatus.FormatError">
+            <summary>
+            格式错误
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.StringHelper.IDCardStatus.CityError">
+            <summary>
+            省份错误
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.StringHelper.IDCardStatus.BirthDayError">
+            <summary>
+            生日错误
+            </summary>
+        </member>
+        <member name="F:EastSim.Utility.StringHelper.IDCardStatus.VerifiError">
+            <summary>
+            校验码错误
+            </summary>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.InfoCheck">
+            <summary>
+            字符串信息检查
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.InfoCheck.CheckIDCard(System.String)">
+            <summary>
+            检查身份证是否正确
+            </summary>
+            <param name="CardID">身份证号码</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.InfoCheck.CheckIDCard18(System.String)">
+            <summary>
+            检查18位的身份证号码
+            </summary>
+            <param name="CardID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.InfoCheck.CheckIDCard15(System.String)">
+            <summary>
+            检查15位的身份证号码
+            </summary>
+            <param name="CardID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.InfoCheck.CheckEmailAddress(System.String)">
+            <summary>
+            检查是否是邮箱地址
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.InfoCheck.CheckExtendEmailAddress(System.String,System.String@)">
+            <summary>
+            检查是否是扩展的Email地址
+            </summary>
+            <param name="email"></param>
+            <param name="normailEmail">返回普通地址</param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.IniFileHelper">
+            <summary>
+            ini文件帮助
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.IniFileHelper.WritePrivateProfileString(System.String,System.String,System.String,System.String)">
+            <summary>
+            Windows API 对INI文件写方法
+            </summary>
+            <param name="lpApplicationName">要在其中写入新字串的小节名称。这个字串不区分大小写</param>
+            <param name="lpKeyName">
+            <para>要设置的项名或条目名。这个字串不区分大小写。</para>
+            <para>用null可删除这个小节的所有设置项</para>
+            </param>
+            <param name="lpString">
+            <para>指定为这个项写入的字串值。</para>
+            <para>用null表示删除这个项现有的字串</para>
+            </param>
+            <param name="lpFileName">
+            <para>初始化文件的名字。</para>
+            <para>如果没有指定完整路径名，则windows会在windows目录查找文件。如果文件没有找到，则函数会创建它</para>
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.IniFileHelper.GetPrivateProfileString(System.String,System.String,System.String,System.Text.StringBuilder,System.Int32,System.String)">
+            <summary>
+            Windows API 对INI文件读方法
+            </summary>
+            <param name="lpApplicationName">
+            <para>欲在其中查找条目的小节名称。这个字串不区分大小写。</para>
+            <para>如设为null，就在lpReturnedString缓冲区内装载这个ini文件所有小节的列表</para>
+            </param>
+            <param name="lpKeyName">
+            <para>欲获取的项名或条目名。这个字串不区分大小写。</para>
+            <para>如设为null，就在lpReturnedString缓冲区内装载指定小节所有项的列表。</para>
+            <para>每个项都用一个NULL字符分隔，最后一个项用两个NULL字符中止。</para>
+            <para>也请参考GetPrivateProfileInt函数的注解。</para>
+            </param>
+            <param name="lpDefault">指定的条目没有找到时返回的默认值。可设为空（""）</param>
+            <param name="lpReturnedString">指定一个字串缓冲区，长度至少为nSize</param>
+            <param name="nSize">指定装载到lpReturnedString缓冲区的最大字符数量</param>
+            <param name="lpFileName">初始化文件的名字。如没有指定一个完整路径名，windows就在Windows目录中查找文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.IniFileHelper.ReadIniData(System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            对INI文件进行读取
+            </summary>
+            <param name="lpApplicationName">
+            <para>欲在其中查找条目的小节名称。这个字串不区分大小写。</para>
+            <para>如设为null，就在lpReturnedString缓冲区内装载这个ini文件所有小节的列表</para>
+            </param>
+            <param name="lpKeyName">
+            <para>欲获取的项名或条目名。这个字串不区分大小写。</para>
+            <para>如设为null，就在lpReturnedString缓冲区内装载指定小节所有项的列表。</para>
+            <para>每个项都用一个NULL字符分隔，最后一个项用两个NULL字符中止。</para>
+            <para>也请参考GetPrivateProfileInt函数的注解。</para>
+            </param>
+            <param name="lpDefault">指定的条目没有找到时返回的默认值。可设为空（""）</param>
+            <param name="nSize">返回值的最大字符数量</param>
+            <param name="lpFileName">初始化文件的名字。如没有指定一个完整路径名，windows就在Windows目录中查找文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.IniFileHelper.WriteIniData(System.String,System.String,System.String,System.String)">
+            <summary>
+            对INI文件写方法
+            </summary>
+            <param name="lpApplicationName">要在其中写入新字串的小节名称。这个字串不区分大小写</param>
+            <param name="lpKeyName">
+            <para>要设置的项名或条目名。这个字串不区分大小写。</para>
+            <para>用null可删除这个小节的所有设置项</para>
+            </param>
+            <param name="lpString">
+            <para>指定为这个项写入的字串值。</para>
+            <para>用null表示删除这个项现有的字串</para>
+            </param>
+            <param name="lpFileName">
+            <para>初始化文件的名字。</para>
+            <para>如果没有指定完整路径名，则windows会在windows目录查找文件。如果文件没有找到，则函数会创建它</para>
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.IPChange">
+            <summary>
+            ip地址转换
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.IPChange.ToIPString(System.UInt32)">
+            <summary>
+            将由主机字节序uint表示的IP地址转换为字符串
+            </summary>
+            <param name="Ip">ip地址</param>
+            <returns>IP字符串</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.IPChange.ToUint32(System.String)">
+            <summary>
+            将IP地址字符串转换为由主机字节序uint表示的IP地址
+            </summary>
+            <param name="ip">IP地址字符串</param>
+            <returns>uint表示的IP地址</returns>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.Similarity">
+            <summary>
+            字符串相似度匹配
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.Similarity.GetSimilarity(System.String,System.String)">
+            <summary>
+            获取两个字符串的相似度
+            </summary>
+            <param name="str1"></param>
+            <param name="str2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.Similarity.Min(System.Int32[])">
+            <summary>
+            得到最小值
+            </summary>
+            <param name="arr"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.TableString">
+            <summary>
+            表格和字符串相互转换
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.TableString.TableToString(System.Data.DataTable,System.Char,System.Char)">
+            <summary>
+            
+            </summary>
+            <param name="dt"></param>
+            <param name="rowsplit"></param>
+            <param name="colsplit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.TableString.StringToTable(System.String,System.Boolean,System.Char,System.Char,System.Boolean,System.Boolean)">
+            <summary>
+            将由分隔符分割的字符串转换为对应表格
+            </summary>
+            <param name="value">字符串</param>
+            <param name="withtitle">是否将第一行数据作为表头</param>
+            <param name="rowsplit">行分割字符</param>
+            <param name="colsplit">列分隔字符</param>
+            <param name="deleteemptyline">是否删除仅由空白字符组成的行</param>
+            <param name="trim">单元格内容做trim操作，分割成表格内容才会进行trim操作</param>
+            <returns></returns>
+        </member>
+        <member name="T:EastSim.Utility.StringHelper.VerificationCode">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.VerificationCode.GenerateVerifyCode(System.Int32)">
+            <summary>
+            使用系统默认字符源生成验证码
+            </summary>
+            <param name="verifySize">验证码长度</param>
+            <returns>验证码</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.VerificationCode.GenerateVerifyCode(System.Int32,System.String)">
+            <summary>
+            使用指定源生成验证码
+            </summary>
+            <param name="verifySize">验证码长度</param>
+            <param name="sources">验证码字符来源</param>
+            <returns>验证码</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.VerificationCode.GetRandColor(System.Int32,System.Int32)">
+            <summary>
+            获取随机颜色
+            </summary>
+            <param name="minColor">最小颜色值</param>
+            <param name="maxColor">最大颜色值</param>
+            <returns></returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.VerificationCode.GetRandomIntColor">
+            <summary>
+            获取随机颜色值，仅包含rgb，共24位：[8位r][8位g][8位b]
+            </summary>
+            <returns>颜色值，仅包含rgb，共24位：[8位r][8位g][8位b]</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.VerificationCode.GetRandomRgb">
+            <summary>
+            获取随机颜色值
+            </summary>
+            <returns>颜色值，仅包含rgb，[0]-r、[1]-g、[2]-b</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.VerificationCode.CreateImage(System.Int32,System.Int32,System.String)">
+            <summary>
+            生成验证码图片
+            </summary>
+            <param name="w">图片宽度</param>
+            <param name="h">图片高度</param>
+            <param name="code">验证码</param>
+            <returns>验证码图片</returns>
+        </member>
+        <member name="M:EastSim.Utility.StringHelper.VerificationCode.CreateVerifyImage(System.Int32,System.Int32,System.Int32,System.Drawing.Bitmap@)">
+            <summary>
+            输出随机验证码图片流,并返回验证码值 
+            </summary>
+            <param name="w">图片宽度</param>
+            <param name="h">图片高度</param>
+            <param name="verifySize">验证码长度</param>
+            <param name="img">验证码图片</param>
+            <returns>验证码字符</returns>
+        </member>
+        <member name="M:System.Security.Cryptography.SymmetricAlgorithmExtend.Encrypt(System.Security.Cryptography.SymmetricAlgorithm,System.String)">
+            <summary>
+            加密字符串
+            </summary>
+            <param name="symmetricAlgorithm"></param>
+            <param name="plainText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Security.Cryptography.SymmetricAlgorithmExtend.Decrypt(System.Security.Cryptography.SymmetricAlgorithm,System.String)">
+            <summary>
+            解密字符串
+            </summary>
+            <param name="symmetricAlgorithm"></param>
+            <param name="plainText"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
