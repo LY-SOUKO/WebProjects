@@ -74,6 +74,7 @@
     <Content Include="Common\Student\StudentList.aspx" />
     <Content Include="default.aspx" />
     <Content Include="JS\jquery-3.5.1.min.js" />
+    <Content Include="JS\vue.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
