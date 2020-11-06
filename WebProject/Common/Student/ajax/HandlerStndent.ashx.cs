@@ -29,13 +29,8 @@ namespace WebProject.Common.Student.ajax
         private Result GetStudentList() 
         {
             var aaaa = GetPostBack.GetPostBackValue("aaa");
-            var dateList = BLL.Student.Student.BinddateList().AsEnumerable().Select(t => new
-            {
-                UserName = t.Field<string>("UserName"),
-                Name = t.Field<string>("Name"),
-                Powd = t.Field<string>("Powd")
-            }).ToList();
-            return new Result() { state = state.success, data = new { DataList = dateList, TotalRowNum = dateList.Count} };
+            var dateList = BLL.Student.Student.BinddateList();
+            return new Result() { state = state.success, data = new { DataList = dateList, TotalRowNum = dateList.Rows} };
         }
     }
 }
