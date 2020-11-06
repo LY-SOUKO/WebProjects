@@ -72,11 +72,7 @@
   <ItemGroup>
     <Content Include="Common\Student\js\StudentList.js" />
     <Content Include="Common\Student\StudentList.aspx" />
-    <Content Include="JS\common.js" />
     <Content Include="JS\jquery-3.5.1.min.js" />
-    <Content Include="JS\jquery.validate.min.js" />
-    <Content Include="JS\supersized-init.js" />
-    <Content Include="JS\supersized.3.2.7.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
