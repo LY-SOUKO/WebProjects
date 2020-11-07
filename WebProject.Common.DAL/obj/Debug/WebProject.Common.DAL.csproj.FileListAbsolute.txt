@@ -23,3 +23,17 @@ E:\项目\开发\WebProjects\WebProject.Common.DAL\obj\Debug\WebProject.Common.D
 E:\项目\开发\WebProjects\WebProject.Common.DAL\bin\Debug\EastSim.Utility.dll
 E:\项目\开发\WebProjects\WebProject.Common.DAL\bin\Debug\EastSim.Utility.xml
 E:\项目\开发\WebProjects\WebProject.Common.DAL\bin\Debug\en-US\EastSim.Utility.resources.dll
+E:\Name_Project\WebProjects\WebProject.Common.DAL\bin\Debug\WebProject.Common.DAL.dll
+E:\Name_Project\WebProjects\WebProject.Common.DAL\bin\Debug\WebProject.Common.DAL.pdb
+E:\Name_Project\WebProjects\WebProject.Common.DAL\bin\Debug\SQLHelper.dll
+E:\Name_Project\WebProjects\WebProject.Common.DAL\bin\Debug\Newtonsoft.Json.dll
+E:\Name_Project\WebProjects\WebProject.Common.DAL\bin\Debug\EastSim.Utility.dll
+E:\Name_Project\WebProjects\WebProject.Common.DAL\bin\Debug\SQLHelper.pdb
+E:\Name_Project\WebProjects\WebProject.Common.DAL\bin\Debug\Newtonsoft.Json.xml
+E:\Name_Project\WebProjects\WebProject.Common.DAL\bin\Debug\EastSim.Utility.xml
+E:\Name_Project\WebProjects\WebProject.Common.DAL\bin\Debug\en-US\EastSim.Utility.resources.dll
+E:\Name_Project\WebProjects\WebProject.Common.DAL\obj\Debug\WebProject.Common.DAL.csprojAssemblyReference.cache
+E:\Name_Project\WebProjects\WebProject.Common.DAL\obj\Debug\WebProject.Common.DAL.csproj.CoreCompileInputs.cache
+E:\Name_Project\WebProjects\WebProject.Common.DAL\obj\Debug\WebProject.Common.DAL.csproj.CopyComplete
+E:\Name_Project\WebProjects\WebProject.Common.DAL\obj\Debug\WebProject.Common.DAL.dll
+E:\Name_Project\WebProjects\WebProject.Common.DAL\obj\Debug\WebProject.Common.DAL.pdb

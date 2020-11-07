@@ -70,11 +70,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\Login\css\Login.css" />
+    <Content Include="Common\Login\js\Login.js" />
     <Content Include="Common\Login\Login.aspx" />
     <Content Include="Common\Student\js\StudentList.js" />
     <Content Include="Common\Student\StudentList.aspx" />
     <Content Include="default.aspx" />
     <Content Include="JS\jquery-3.5.1.min.js" />
+    <Content Include="JS\jquery1.10.2.min.js" />
+    <Content Include="JS\threer63.min.js" />
     <Content Include="JS\vue.js" />
     <Content Include="Layui\css\layui.css" />
     <Content Include="Layui\css\layui.mobile.css" />
@@ -184,6 +188,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Login\ajax\HandlerLogin.ashx.cs">
+      <DependentUpon>HandlerLogin.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Common\Login\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -216,6 +223,7 @@
     <Content Include="Layui\font\iconfont.ttf" />
     <Content Include="Layui\font\iconfont.woff" />
     <Content Include="Layui\font\iconfont.woff2" />
+    <Content Include="Common\Login\ajax\HandlerLogin.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
