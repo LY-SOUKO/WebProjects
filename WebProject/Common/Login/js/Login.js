@@ -16,12 +16,12 @@
 
 
         document.onkeydown = function (e) {
-            debugger
+            
             if (!e) {
                 e = window.event;
             }
             if ((e.keyCode || e.which) == 13) {
-                debugger
+                
                 loginOn();
             }
         }
